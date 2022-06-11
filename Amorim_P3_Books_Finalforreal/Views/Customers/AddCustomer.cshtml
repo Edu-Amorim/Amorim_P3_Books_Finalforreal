@@ -1,0 +1,101 @@
+﻿@model Amorim_P3_Books_Finalforreal.Models.UpsertCustomerModel
+
+@{
+    ViewBag.Title = "AddCustomer";
+}
+
+<h2>Add a Customer</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Customer</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.HiddenFor(gm => gm.Customer.CustomerID)
+    </div>
+
+        <div class="form-group">
+            @Html.LabelFor(gm => gm.Customer.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(gm => gm.Customer.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(gm => gm.Customer.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(gm => gm.Customer.Address, "Enter Address Here:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="autocomplete-container" id="autocomplete-container"></div>
+            </div>
+        </div>
+
+        @*HIDDEN*@
+        <div class="form-group">
+            @Html.LabelFor(gm => gm.Customer.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(gm => gm.Customer.Address, new { htmlAttributes = new { @class = "form-control" } })*@
+                <input type="text" class="form-control" id="customerAddress" name="CustomerAddress" />
+                @Html.ValidationMessageFor(gm => gm.Customer.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*HIDDEN*@
+        <div class="form-group">
+            @Html.LabelFor(gm => gm.Customer.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(gm => gm.Customer.City, new { htmlAttributes = new { @class = "form-control" } })*@
+                <input type="text" class="form-control" id="customerCity" name="CustomerCity" />
+                @Html.ValidationMessageFor(gm => gm.Customer.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(gm => gm.Customer.State, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(gm => gm.Customer.State, new { htmlAttributes = new { @class = "form-control" } })*@
+
+                <select name="StateName">
+                    @foreach (var state in Model.States)
+                    {
+                        if (!state.IsDeleted)
+                        {
+                            <option value="@state.StateCode">@state.StateName (@state.StateCode)</option>
+                        }
+                    }
+                </select>
+
+                @Html.ValidationMessageFor(gm => gm.Customer.State, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(gm => gm.Customer.ZipCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*Html.EditorFor(gm => gm.Customer.ZipCode, new { htmlAttributes = new { @class = "form-control" } })*@
+                <input type="text" class="form-control" id="customerZipCode" name="CustomerZipCode" />
+                @Html.ValidationMessageFor(gm => gm.Customer.ZipCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="button" value="Delete" class="btn btn-danger" onclick="apiHandler.DELETE('/Customers/Delete/@Model.Customer.CustomerID');" />
+            </div>
+        </div>
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "/AllCustomers/")
+</div>
+
+<link rel="stylesheet" href="~/Content/geoAddress.css" />
+<script src="~/Scripts/geoAddress.js"></script>

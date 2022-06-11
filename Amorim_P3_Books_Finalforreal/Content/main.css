@@ -1,0 +1,73 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: rgba(255, 69, 0, 50%);
+}
+
+
+h1 {
+    font-weight: bold
+}
+
+
+table {
+    margin-top: 3em;
+}
+
+.sortable tr th {
+    cursor: pointer;
+    
+}
+
+
+.sortable tr th span {
+    padding: .4em;
+}
+
+.sortable tr th span:hover {
+    color: cornflowerblue;
+    border: solid 2px navy;
+    border-radius: 10px;
+    transition: .2s;
+}
+
+tr:hover {
+    background-color: orangered !important;
+    color: oldlace;
+}
+
+.edit {
+    font-weight: bolder;
+    padding: .2em;
+}
+
+i {
+    padding-right: .2em;
+}
+
+button:hover {
+    transition: .2s;
+    font-weight: bolder;
+    color: cornflowerblue !important;
+    /*text-decoration: none !important;*/
+    border: solid 2px navy;
+    border-radius: 10px;
+}
+
+.jumbotron {
+    background-color: cornsilk !important;
+    background-image: url('https://i.imgur.com/qEiKFO7.jpg');
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: repeat-y;
+    background-size: cover;
+}
+
+.navbar {
+    background-color: #333333 !important;
+}

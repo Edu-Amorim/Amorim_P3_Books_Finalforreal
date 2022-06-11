@@ -1,0 +1,57 @@
+﻿@model List<Amorim_P3_Books_Finalforreal.Models.InvoiceLineItem>
+@{
+    ViewBag.Title = "All Invoice Line Items";
+}
+
+<h2>All InvoiceLine Items</h2>
+
+@*Add another Invoice line item*@
+<a href="/InvoiceLineItems/AddInvoiceLineItem">Add another invoice line item</a>
+
+@*Search Invoice line item*@
+
+<div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="txtSearch" aria-describedby="txtSearch" placeholder="Search invoice line item">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary" value="Search" onclick="Sortable.Search()">Search</button>
+</div>
+
+@*Table with all Invoice line items + Bootstrap + Sorting*@
+
+<table class="sortable table table-striped table-hover thead-dark">
+    <thead>
+        <tr>
+            <th scope="col" onclick="Sortable.Sort(0)"><span>Invoice ID</span></th>
+            <th scope="col" onclick="Sortable.Sort(1)"><span>Product Code</span></th>
+            <th scope="col" onclick="Sortable.Sort(2)"><span>Unit Price</span></th>
+            <th scope="col" onclick="Sortable.Sort(3)"><span>Quantity</span></th>
+            <th scope="col" onclick="Sortable.Sort(4)"><span>Item Total</span></th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var invoiceLineItem in Model)
+        {
+            <tr>
+                <td scope="row">@invoiceLineItem.InvoiceID</td>
+                <td>@invoiceLineItem.ProductCode</td>
+                <td>@invoiceLineItem.UnitPrice</td>
+                <td>@invoiceLineItem.Quantity</td>
+                <td>@invoiceLineItem.ItemTotal</td>
+                <td><a class="edit" href="/InvoiceLineItems/AddInvoiceLineItem/?invoiceId=@invoiceLineItem.InvoiceID&productId=@invoiceLineItem.ProductCode"><i class="bi bi-pencil-square"></i>Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    Sortable.baseUrl = "/InvoiceLineItems/AllInvoiceLineItems/"
+</script>
+
+
+
+

@@ -1,0 +1,59 @@
+﻿@model List<Amorim_P3_Books_Finalforreal.Models.Invoice>
+@{
+    ViewBag.Title = "AllInvoices";
+}
+
+<h2>All Invoices</h2>
+
+@*Add another Invoice*@
+<a href="/Invoices/AddInvoice">Add another invoice</a>
+
+@*Search Invoice*@
+
+<div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="txtSearch" aria-describedby="txtSearch" placeholder="Search invoice">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary" value="Search" onclick="Sortable.Search()">Search</button>
+</div>
+
+@*Table with all customers + Bootstrap + Sorting*@
+
+<table class="sortable table table-striped table-hover thead-dark">
+    <thead>
+        <tr>
+            <th scope="col" onclick="Sortable.Sort(0)"><span>Invoice ID</span></th>
+            <th scope="col" onclick="Sortable.Sort(1)"><span>Customer Name</span></th>
+            <th scope="col" onclick="Sortable.Sort(2)"><span>Invoice Date</span></th>
+            <th scope="col" onclick="Sortable.Sort(3)"><span>Product Total</span></th>
+            <th scope="col" onclick="Sortable.Sort(4)"><span>Sales Tax</span></th>
+            <th scope="col" onclick="Sortable.Sort(5)"><span>Shipping Fees</span></th>
+            <th scope="col" onclick="Sortable.Sort(6)"><span>Invoice Total</span></th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var invoice in Model)
+        {
+            <tr>
+                <td scope="row">@invoice.InvoiceID</td>
+                <td>@invoice.Customer.Name</td>
+                <td>@invoice.InvoiceDate</td>
+                <td>@invoice.ProductTotal</td>
+                <td>@invoice.SalesTax</td>
+                <td>@invoice.Shipping</td>
+                <td>@invoice.InvoiceTotal</td>
+                <td><a class="edit" href="/Invoices/AddInvoice/@invoice.InvoiceID"><i class="bi bi-pencil-square"></i>Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    Sortable.baseUrl = "/Invoices/AllInvoices/"
+</script>
+
+

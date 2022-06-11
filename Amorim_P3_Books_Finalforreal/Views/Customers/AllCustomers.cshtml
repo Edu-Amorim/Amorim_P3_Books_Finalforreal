@@ -1,0 +1,56 @@
+﻿@model List<Amorim_P3_Books_Finalforreal.Models.Customer>
+
+@{
+    ViewBag.Title = "AllCustomers";
+}
+
+<h2>All Customers</h2>
+
+@*Add another Customer*@
+<a href="/Customers/AddCustomer">Add another customer</a>
+
+@*Search Customer*@
+
+<div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="txtSearch" aria-describedby="txtSearch" placeholder="Search customer">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary" value="Search" onclick="Sortable.Search()">Search</button>
+</div>
+
+@*Table with all customers + Bootstrap + Sorting*@
+
+<table class="sortable table table-striped table-hover thead-dark">
+    <thead>
+        <tr>
+            <th scope="col" onclick="Sortable.Sort(0)"><span>Customer ID</span></th>
+            <th scope="col" onclick="Sortable.Sort(1)"><span>Customer Name</span></th>
+            <th scope="col" onclick="Sortable.Sort(2)"><span>Customer Address</span></th>
+            <th scope="col" onclick="Sortable.Sort(3)"><span>Customer City</span></th>
+            <th scope="col" onclick="Sortable.Sort(4)"><span>Customer State</span></th>
+            <th scope="col" onclick="Sortable.Sort(5)"><span>Customer ZipCode</span></th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td scope="row">@customer.CustomerID</td>
+                <td>@customer.Name</td>
+                <td>@customer.Address</td>
+                <td>@customer.City</td>
+                <td>@customer.State</td>
+                <td>@customer.ZipCode</td>
+                <td><a class="edit" href="/Customers/AddCustomer/@customer.CustomerID"><i class="bi bi-pencil-square"></i>Edit</a></td>
+            </tr>
+}
+    </tbody>
+</table>
+
+<script>
+    Sortable.baseUrl = "/Customers/AllCustomers/"
+</script>

@@ -1,0 +1,96 @@
+﻿@model Amorim_P3_Books_Finalforreal.Models.UpsertInvoiceLineItemModel
+
+@{
+    ViewBag.Title = "Add Invoice Line Item";
+}
+
+<h2>AddInvoiceLineItem</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>InvoiceLineItem</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(gm => gm.InvoiceLineItem.InvoiceID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(gm => gm.InvoiceLineItem.InvoiceID, new { htmlAttributes = new { @class = "form-control" } })*@
+
+                <input list="invoices" name="InvoiceID" />
+                <datalist id="invoices">
+                    @foreach (var invoice in Model.Invoices)
+                    {
+                        if (!invoice.IsDeleted)
+                        {
+                            <option value="@invoice.InvoiceID" />
+                        }
+                    }
+                </datalist>
+
+                @Html.ValidationMessageFor(gm => gm.InvoiceLineItem.InvoiceID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(gm => gm.InvoiceLineItem.ProductCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(gm => gm.InvoiceLineItem.ProductCode, new { htmlAttributes = new { @class = "form-control" } })*@
+
+                <input list="products" name="ProductName" />
+                <datalist id="products">
+                    @foreach (var product in Model.Products)
+                    {
+                        if (!product.IsDeleted)
+                        {
+
+                            <option value="@product.ProductCode">@product.Description</option>
+
+                        }
+                    }
+                </datalist>
+
+
+                @Html.ValidationMessageFor(gm => gm.InvoiceLineItem.ProductCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(gm => gm.InvoiceLineItem.UnitPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(gm => gm.InvoiceLineItem.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(gm => gm.InvoiceLineItem.UnitPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(gm => gm.InvoiceLineItem.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(gm => gm.InvoiceLineItem.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(gm => gm.InvoiceLineItem.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(gm => gm.InvoiceLineItem.ItemTotal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(gm => gm.InvoiceLineItem.ItemTotal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(gm => gm.InvoiceLineItem.ItemTotal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="button" value="Delete" class="btn btn-danger" onclick="apiHandler.DELETE('/InvoiceLineItems/Delete/?invoiceId=@Model.InvoiceLineItem.InvoiceID&productId=@Model.InvoiceLineItem.ProductCode');" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "/AllInvoiceLineItems/")
+</div>

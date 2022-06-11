@@ -1,0 +1,51 @@
+﻿@model List<Amorim_P3_Books_Finalforreal.Models.State>
+@{
+    ViewBag.Title = "AllStates";
+}
+
+<h2>All States</h2>
+
+@*Add another State*@
+<a href="/States/AddState">Add another state</a>
+
+@*Search State*@
+
+<div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="txtSearch" aria-describedby="txtSearch" placeholder="Search state">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary" value="Search" onclick="Sortable.Search()">Search</button>
+</div>
+
+@*Table with all customers + Bootstrap+ Sorting*@
+
+<table class="sortable table table-striped table-hover thead-dark">
+    <thead>
+        <tr>
+            <th scope="col" onclick="Sortable.Sort(0)"><span>State Code</span></th>
+            <th scope="col" onclick="Sortable.Sort(1)"><span>State Name</span></th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var state in Model)
+        {
+            <tr>
+                <td scope="row">@state.StateCode</td>
+                <td>@state.StateName</td>
+                <td><a class="edit" href="/States/AddState/@state.StateCode"><i class="bi bi-pencil-square"></i>Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    Sortable.baseUrl = "/States/AllStates/"
+</script>
+
+
+
+

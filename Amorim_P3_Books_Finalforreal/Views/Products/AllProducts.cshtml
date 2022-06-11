@@ -1,0 +1,53 @@
+﻿@model List<Amorim_P3_Books_Finalforreal.Models.Product>
+@{
+    ViewBag.Title = "AllProducts";
+}
+
+<h2>All Products</h2>
+
+@*Add another Product*@
+<a href="/Products/AddProduct">Add another product</a>
+
+@*Search Product*@
+
+<div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="txtSearch" aria-describedby="txtSearch" placeholder="Search product">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary" value="Search" onclick="Sortable.Search()">Search</button>
+</div>
+
+@*Table with all customers + Bootstrap + Sorting*@
+
+<table class="sortable table table-striped table-hover thead-dark">
+    <thead>
+        <tr>
+            <th scope="col" onclick="Sortable.Sort(0)"><span>Product Code</span></th>
+            <th scope="col" onclick="Sortable.Sort(1)"><span>Product Description</span></th>
+            <th scope="col" onclick="Sortable.Sort(2)"><span>Product Unit Price</span></th>
+            <th scope="col" onclick="Sortable.Sort(3)"><span>Product OnHand Quantity</span></th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td scope="row">@product.ProductCode</td>
+                <td>@product.Description</td>
+                <td>@product.UnitPrice</td>
+                <td>@product.OnHandQuantity</td>
+                <td><a class="edit" href="/Products/AddProduct/@product.ProductCode"><i class="bi bi-pencil-square"></i>Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    Sortable.baseUrl = "/Products/AllProducts/"
+</script>
+
+
